@@ -5,11 +5,14 @@ const { verifyToken } = require('../express-jwt-validator');
 
 module.exports = (conf) => {
     const app = express();
+    const authProp = (conf && conf.requestAuthProp) ? conf.requestAuthProp : 'authData'
     app.get('/public', (req, res) => {
         res.json({ path: 'public' });
     });
     app.get('/secret', verifyToken(conf), (req, res) => {
-        res.json({ path: 'secret', authData: req.authData });
+        let result = { path: 'secret' };
+        result[authProp] = req[authProp];
+        res.json(result);
     });
     return app;
 }

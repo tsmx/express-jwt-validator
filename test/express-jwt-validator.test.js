@@ -33,7 +33,16 @@ describe('express-jwt-validator test suite', () => {
         expect(response.status).toBe(401);
     });
 
-    it('tests a successful access to a secret route with a valid bearer token', async () => {
+    it('tests a failed access to a secret route with an invalid auth header (\'Bearer \' prefix missing)', async () => {
+        const app = testApp({ secret: testSecret });
+        const request = supertest(app);
+        const response = await request
+            .get('/secret')
+            .set('Authorization', testToken);
+        expect(response.status).toBe(401);
+    });
+
+    it('tests a successful access to a secret route', async () => {
         const app = testApp({ secret: testSecret });
         const request = supertest(app);
         const response = await request
@@ -42,5 +51,16 @@ describe('express-jwt-validator test suite', () => {
         expect(response.status).toBe(200);
         expect(response.body.authData.user).toBe('TestUser123');
         expect(response.body.authData.info).toBe('test test');
+    });
+
+    it('tests a successful access to a secret route with a custom request property', async () => {
+        const app = testApp({ secret: testSecret, requestAuthProp: 'tokenPayload' });
+        const request = supertest(app);
+        const response = await request
+            .get('/secret')
+            .set('Authorization', 'Bearer ' + testToken);
+        expect(response.status).toBe(200);
+        expect(response.body.tokenPayload.user).toBe('TestUser123');
+        expect(response.body.tokenPayload.info).toBe('test test');
     });
 });
