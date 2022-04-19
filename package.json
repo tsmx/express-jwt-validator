@@ -1,7 +1,7 @@
 {
   "name": "@tsmx/express-jwt-validator",
   "version": "1.0.0",
-  "description": "Simple express middleware function for validating JWT's.",
+  "description": "Simple express middleware function for validating JWT bearer tokens.",
   "main": "express-jwt-validator.js",
   "scripts": {
     "test": "jest",
@@ -15,6 +15,11 @@
     "JWT",
     "jsonwebtoken",
     "validation",
-    "verification"
-  ]
+    "verification",
+    "token",
+    "bearer-token"
+  ],
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1"
+  }
 }
