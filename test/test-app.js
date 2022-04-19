@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 const express = require('express');
 const { verifyToken } = require('../express-jwt-validator');
 
@@ -7,7 +9,7 @@ module.exports = (conf) => {
         res.json({ path: 'public' });
     });
     app.get('/secret', verifyToken(conf), (req, res) => {
-        res.json({ path: 'secret' });
+        res.json({ path: 'secret', authData: req.authData });
     });
     return app;
 }
