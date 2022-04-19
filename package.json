@@ -1,0 +1,20 @@
+{
+  "name": "@tsmx/express-jwt-validator",
+  "version": "1.0.0",
+  "description": "Simple express middleware function for validating JWT's.",
+  "main": "express-jwt-validator.js",
+  "scripts": {
+    "test": "jest",
+    "test-coverage": "jest --coverage"
+  },
+  "author": "tsmx <dev@tsmx.net>",
+  "license": "MIT",
+  "keywords": [
+    "express",
+    "middleware",
+    "JWT",
+    "jsonwebtoken",
+    "validation",
+    "verification"
+  ]
+}
