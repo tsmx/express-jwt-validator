@@ -13,7 +13,7 @@ module.exports.verifyToken = (conf) => {
     // check for optional conf values or use default values instead
     const authHeader = conf.header ? conf.header : defaultHeader;
     const failedStatus = conf.failedStatus ? conf.failedStatus : defaultFailedStatus;
-    const sendExpiredMessage = conf.sendExpiredMessage ? conf.sendExpiredMessage === true : defaultSendExpiredMessage;
+    const sendExpiredMessage = Object.prototype.hasOwnProperty.call(conf, 'sendExpiredMessage') ? conf.sendExpiredMessage === true : defaultSendExpiredMessage;
     const requestAuthProp = conf.requestAuthProp ? conf.requestAuthProp : defaultRequestAuthProp;
     // return middleware function
     return (req, res, next) => {
