@@ -94,6 +94,18 @@ describe('express-jwt-validator test suite', () => {
         expect(memStream.toString()).toBe('');
     });
 
+    it('tests a successful access to a secret route with a custom header property', async () => {
+        const app = testApp({ secret: testSecret, header: 'auth' });
+        const request = supertest(app);
+        const response = await request
+            .get('/secret')
+            .set('auth', 'Bearer ' + testToken);
+        expect(response.status).toBe(200);
+        expect(response.body.authData.user).toBe('TestUser123');
+        expect(response.body.authData.info).toBe('test test');
+        expect(memStream.toString()).toBe('');
+    });
+
     it('tests a failed access to a secret route with an expired token', async () => {
         const app = testApp({ secret: testSecret });
         const request = supertest(app);
