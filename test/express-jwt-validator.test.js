@@ -135,7 +135,7 @@ describe('express-jwt-validator test suite', () => {
         expect(memStream.toString()).toMatch(/^WARN?/);
     });
 
-    it('tests a failed access to a secret route with an invalid bearer token', async () => {
+    it('tests a failed access to a secret route with an invalid bearer token and a winston logger defined', async () => {
         const app = testApp({ secret: testSecret, logger: winstonLogger });
         const request = supertest(app);
         const response = await request
@@ -166,5 +166,45 @@ describe('express-jwt-validator test suite', () => {
         expect(response.body.authData.user).toBe('TestUser123');
         expect(response.body.authData.info).toBe('test test');
         expect(memStream.toString()).toMatch(/^INFO?/);
+    });
+
+    it('tests a failed access to a secret route without bearer token and an alternative HTTP status code', async () => {
+        const app = testApp({ secret: testSecret, failedStatus: 403 });
+        const request = supertest(app);
+        const response = await request
+            .get('/secret');
+        expect(response.status).toBe(403);
+        expect(memStream.toString()).toBe('');
+    });
+
+    it('tests a failed access to a secret route with an invalid auth header (\'Bearer \' prefix missing) and an alternative HTTP status code', async () => {
+        const app = testApp({ secret: testSecret, failedStatus: 403 });
+        const request = supertest(app);
+        const response = await request
+            .get('/secret')
+            .set('Authorization', testToken);
+        expect(response.status).toBe(403);
+        expect(memStream.toString()).toBe('');
+    });
+
+    it('tests a failed access to a secret route with an invalid bearer token and an alternative HTTP status code', async () => {
+        const app = testApp({ secret: testSecret, failedStatus: 403 });
+        const request = supertest(app);
+        const response = await request
+            .get('/secret')
+            .set('Authorization', 'Bearer xyz');
+        expect(response.status).toBe(403);
+        expect(memStream.toString()).toBe('');
+    });
+
+    it('tests a failed access to a secret route with an expired token and an alternative HTTP status code', async () => {
+        const app = testApp({ secret: testSecret, failedStatus: 403 });
+        const request = supertest(app);
+        const response = await request
+            .get('/secret')
+            .set('Authorization', 'Bearer ' + expiredTestToken);
+        expect(response.status).toBe(403);
+        expect(response.body.error).toBeDefined();
+        expect(memStream.toString()).toBe('');
     });
 });
