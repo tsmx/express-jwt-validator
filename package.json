@@ -1,6 +1,6 @@
 {
   "name": "@tsmx/express-jwt-validator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple express middleware for validating JWT bearer tokens.",
   "main": "express-jwt-validator.js",
   "engines": {
