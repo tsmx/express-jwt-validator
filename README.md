@@ -33,4 +33,24 @@ Requests with a failed JWT validation will be rejected with [HTTP status 401](ht
 
 ## Configuration options
 
+When requiring in the `verifyToken` middlware with...
+
+```js
+const { verifyToken } = require('@tsmx/express-jwt-validator')({ /* configuration object */ });
+```
+
+...the passed configuration object supports the following porperties.
+
+### secret
+
+### header
+
+### rejectHttpStatus
+
+### sendExpiredMessage
+
+### requestAuthProp
+
+### logger
+
 Coming soon...
