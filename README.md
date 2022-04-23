@@ -25,6 +25,8 @@ app.get('/secret', verifyToken, (req, res) => {
 });
 ```
 
+For further customizing please refer to the [configuration options](#configuration-options).
+
 ## How it works
 
 This module exports a middleware function for express to check a request for a valid JSON Web token authorization. The token must be provided as a bearer token in the HTTP request header according to the [RFC standard](https://datatracker.ietf.org/doc/html/rfc6750#section-2.1).
@@ -72,7 +74,10 @@ Can be used if the bearer token will be supplied in another header field then `a
 Example: 
 
 ```js
-const verifyToken = require('@tsmx/express-jwt-validator')({ secret: 'MySecretKey-123456', header: 'auth' });
+const verifyToken = require('@tsmx/express-jwt-validator')({ 
+  secret: 'MySecretKey-123456', 
+  header: 'auth' 
+});
 ```
 
 ### rejectHttpStatus
@@ -88,7 +93,10 @@ The HTTP status to be sent back to the client if the bearer token validation fai
 Example: 
 
 ```js
-const verifyToken = require('@tsmx/express-jwt-validator')({ secret: 'MySecretKey-123456', rejectHttpStatus: 403 });
+const verifyToken = require('@tsmx/express-jwt-validator')({ 
+  secret: 'MySecretKey-123456',
+  rejectHttpStatus: 403 
+});
 ```
 
 ### sendExpiredMessage
@@ -106,7 +114,10 @@ If set to false, an expired token will be rejected withput any response body.
 Example: 
 
 ```js
-const verifyToken = require('@tsmx/express-jwt-validator')({ secret: 'MySecretKey-123456', sendExpiredMessage: false });
+const verifyToken = require('@tsmx/express-jwt-validator')({ 
+  secret: 'MySecretKey-123456', 
+  sendExpiredMessage: false 
+});
 ```
 
 ### requestAuthProp
@@ -122,7 +133,10 @@ The name of the property in `req` where the JWT bearer token payload should be s
 Example: 
 
 ```js
-const verifyToken = require('@tsmx/express-jwt-validator')({ secret: 'MySecretKey-123456', requestAuthProp: 'tokenPayload' });
+const verifyToken = require('@tsmx/express-jwt-validator')({ 
+  secret: 'MySecretKey-123456', 
+  requestAuthProp: 'tokenPayload' 
+});
 ```
 
 Token data would now be accessible with `req.tokenPayload` instead of `req.authData` in following middleware functions. 
@@ -135,7 +149,7 @@ Default: `undefined`
 
 Mandatory: no
 
-You can pass a winston logger instance (or any compatible) to get log outpur from the middleware. Compatible means that the logger must provide `info`, `warn` and `error` functions receiving a string to be logged.
+You can pass a [winston](https://www.npmjs.com/package/winston)  logger instance (or any compatible) to get log outpur from the middleware. Compatible means that the logger must provide `info`, `warn` and `error` functions receiving a string to be logged.
 
 Example:
 
@@ -144,5 +158,7 @@ const winston = require('winston');
 
 winstonLogger = winston.createLogger({ /*... winston options ...*/ });
 
-const verifyToken = require('@tsmx/express-jwt-validator')({ secret: 'MySecretKey-123456', logger:  winstonLogger});
+const verifyToken = require('@tsmx/express-jwt-validator')({ 
+  secret: 'MySecretKey-123456', logger:  winstonLogger
+});
 ```
