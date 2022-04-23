@@ -18,10 +18,12 @@ Supports optional log output using [winston](https://www.npmjs.com/package/winst
 const express = require('express');
 const app = express();
 
-const verifyToken = require('@tsmx/express-jwt-validator')({ secret: 'YOUR_JWT_SECRET' });
+const verifyToken = require('@tsmx/express-jwt-validator')({ 
+  secret: 'YOUR_JWT_SECRET' 
+});
 
 app.get('/secret', verifyToken, (req, res) => {
-  res.status(200).send('This route can only be accessed with a valid JWT bearer token.');
+  res.send('Only accessible with a valid JWT bearer token.');
 });
 ```
 
@@ -31,7 +33,7 @@ For further customizing please refer to the [configuration options](#configurati
 
 This module exports a middleware function for express to check a request for a valid JSON Web token authorization. The token must be provided as a bearer token in the HTTP request header according to the [RFC standard](https://datatracker.ietf.org/doc/html/rfc6750#section-2.1).
 
-Requests with a failed JWT validation will be rejected with [HTTP status 401](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401) by default. If the validations succeeds, the verified JWT payload will be added to the rquest and it will be passed to the next element of the middleware chain.
+Requests with a failed JWT validation will be rejected with [HTTP status 401](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401) by default. If the validations succeeds, the verified JWT payload will be added to the request and it will be passed to the next element of the middleware chain.
 
 ![verify-token-schema](https://tsmx.net/wp-content/uploads/2022/04/verify-token-schema.png)
 
@@ -45,7 +47,7 @@ const verifyToken = require('@tsmx/express-jwt-validator')({
 });
 ```
 
-...the passed configuration object supports the following porperties.
+...the passed configuration object supports the following properties.
 
 ### secret
 
@@ -55,7 +57,7 @@ Default: `undefined`
 
 Mandatory: yes
 
-The sceret used to verify the JWT bearer token. Must be present, otherwise an expection will be thrown.
+The sceret used to verify the JWT bearer token. Must be present, otherwise an exception will be thrown.
 
 Example:
 
@@ -73,7 +75,7 @@ Default: `authorization`
 
 Mandatory: no
 
-Can be used if the bearer token will be supplied in another header field then `authorization` (Note: HTTP header field names are case-insensitive).
+Can be used if the bearer token will be supplied in another header field than `authorization` (Note: HTTP header field names are case-insensitive).
 
 Example: 
 
@@ -113,7 +115,7 @@ Mandatory: no
 
 If set to true, the rejection response will contain a JSON body with one property `error` indicating the client that the token has expired. This can be useful to allow the client to check that the token must be refreshed.
 
-If set to false, an expired token will be rejected withput any response body.
+If set to false, an expired token will be rejected without any response body.
 
 Example: 
 
@@ -153,7 +155,7 @@ Default: `undefined`
 
 Mandatory: no
 
-You can pass a [winston](https://www.npmjs.com/package/winston)  logger instance (or any compatible) to get log outpur from the middleware. Compatible means that the logger must provide `info`, `warn` and `error` functions receiving a string to be logged.
+You can pass a [winston](https://www.npmjs.com/package/winston) logger instance (or any compatible) to get log output from the middleware. Compatible means that the logger must provide `info`, `warn` and `error` functions receiving a string to be logged.
 
 Example:
 
