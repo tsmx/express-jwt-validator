@@ -5,7 +5,7 @@ const defaultFailedStatus = 401;
 const defaultSendExpiredMessage = true;
 const defaultRequestAuthProp = 'authData';
 
-module.exports.verifyToken = (conf) => {
+module.exports = (conf) => {
     // check if conf and conf.secret are present (minimal requirement)
     if (!conf || !conf.secret) {
         throw new Error('No secret value provided!');

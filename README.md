@@ -16,7 +16,7 @@ Stop writing boilerplate to protect [express](https://www.npmjs.com/package/expr
 const express = require('express');
 const app = express();
 
-const { verifyToken } = require('@tsmx/express-jwt-validator')({ secret: 'YOUR_JWT_SECRET' });
+const verifyToken = require('@tsmx/express-jwt-validator')({ secret: 'YOUR_JWT_SECRET' });
 
 app.get('/secret', verifyToken, (req, res) => {
   res.status(200).send('This route can only be accessed with a valid JWT bearer token.');
@@ -25,7 +25,7 @@ app.get('/secret', verifyToken, (req, res) => {
 
 ## How it works
 
-This module exports the `verifyToken` middleware function for express to check a request for a valid JSON Web token authorization. The token must be provided as a bearer token in the HTTP request header according to the [RFC standard](https://datatracker.ietf.org/doc/html/rfc6750#section-2.1).
+This module exports a middleware function for express to check a request for a valid JSON Web token authorization. The token must be provided as a bearer token in the HTTP request header according to the [RFC standard](https://datatracker.ietf.org/doc/html/rfc6750#section-2.1).
 
 Requests with a failed JWT validation will be rejected with [HTTP status 401](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401) by default. If the validations succeeds, the verified JWT payload will be added to the rquest and it will be passed to the next element of the middleware chain.
 
@@ -33,10 +33,10 @@ Requests with a failed JWT validation will be rejected with [HTTP status 401](ht
 
 ## Configuration options
 
-When requiring in the `verifyToken` middlware with...
+When requiring in the middlware with...
 
 ```js
-const { verifyToken } = require('@tsmx/express-jwt-validator')({ /* configuration object */ });
+const verifyToken = require('@tsmx/express-jwt-validator')({ /* configuration object */ });
 ```
 
 ...the passed configuration object supports the following porperties.
