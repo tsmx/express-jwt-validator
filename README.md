@@ -25,4 +25,8 @@ app.get('/secret', verifyToken, (req, res) => {
 
 ## How it works
 
-## Configuarion options
+Coming soon...
+
+## Configuration options
+
+Coming soon...
