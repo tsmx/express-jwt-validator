@@ -46,37 +46,49 @@ const verifyToken = require('@tsmx/express-jwt-validator')({ /* configuration ob
 ### secret
 
 Type: `String`
+
 Default: `undefined`
+
 Mandatory: yes
 
 ### header
 
 Type: `String`
+
 Default: `authorization`
+
 Mandatory: no
 
 ### rejectHttpStatus
 
 Type: `Number`
+
 Default: `401`
+
 Mandatory: no
 
 ### sendExpiredMessage
 
 Type: `Boolean`
+
 Default: `true`
+
 Mandatory: no
 
 ### requestAuthProp
 
 Type: `String`
+
 Default: `authData`
+
 Mandatory: no
 
 ### logger
 
 Type: `Object`
+
 Default: `undefined`
+
 Mandatory: no
 
 Coming soon...
