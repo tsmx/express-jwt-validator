@@ -181,7 +181,7 @@ describe('express-jwt-validator test suite', () => {
     });
 
     it('tests a failed access to a secret route without bearer token and an alternative HTTP status code', async () => {
-        const app = testApp({ secret: testSecret, failedStatus: 403 });
+        const app = testApp({ secret: testSecret, rejectHttpStatus: 403 });
         const request = supertest(app);
         const response = await request
             .get('/secret');
@@ -190,7 +190,7 @@ describe('express-jwt-validator test suite', () => {
     });
 
     it('tests a failed access to a secret route with an invalid auth header (\'Bearer \' prefix missing) and an alternative HTTP status code', async () => {
-        const app = testApp({ secret: testSecret, failedStatus: 403 });
+        const app = testApp({ secret: testSecret, rejectHttpStatus: 403 });
         const request = supertest(app);
         const response = await request
             .get('/secret')
@@ -200,7 +200,7 @@ describe('express-jwt-validator test suite', () => {
     });
 
     it('tests a failed access to a secret route with an invalid bearer token and an alternative HTTP status code', async () => {
-        const app = testApp({ secret: testSecret, failedStatus: 403 });
+        const app = testApp({ secret: testSecret, rejectHttpStatus: 403 });
         const request = supertest(app);
         const response = await request
             .get('/secret')
@@ -210,7 +210,7 @@ describe('express-jwt-validator test suite', () => {
     });
 
     it('tests a failed access to a secret route with an expired token and an alternative HTTP status code', async () => {
-        const app = testApp({ secret: testSecret, failedStatus: 403 });
+        const app = testApp({ secret: testSecret, rejectHttpStatus: 403 });
         const request = supertest(app);
         const response = await request
             .get('/secret')

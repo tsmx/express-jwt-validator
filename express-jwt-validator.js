@@ -12,7 +12,7 @@ module.exports.verifyToken = (conf) => {
     }
     // check for optional conf values or use default values instead
     const authHeader = conf.header ? conf.header : defaultHeader;
-    const failedStatus = conf.failedStatus ? conf.failedStatus : defaultFailedStatus;
+    const rejectHttpStatus = conf.rejectHttpStatus ? conf.rejectHttpStatus : defaultFailedStatus;
     const sendExpiredMessage = Object.prototype.hasOwnProperty.call(conf, 'sendExpiredMessage') ? conf.sendExpiredMessage === true : defaultSendExpiredMessage;
     const requestAuthProp = conf.requestAuthProp ? conf.requestAuthProp : defaultRequestAuthProp;
     // return middleware function
@@ -22,7 +22,7 @@ module.exports.verifyToken = (conf) => {
             const bearer = authorizationHeader.split(' ');
             if (bearer.length < 2) {
                 if (conf.logger) conf.logger.warn('Bearer token was not sent. Denying request.');
-                res.sendStatus(failedStatus);
+                res.sendStatus(rejectHttpStatus);
             }
             const bearerToken = bearer[1];
             jwt.verify(bearerToken, conf.secret, (err, authData) => {
@@ -31,16 +31,16 @@ module.exports.verifyToken = (conf) => {
                         if (conf.logger) conf.logger.warn('Expired bearer token was sent. Denying request.');
                         if (sendExpiredMessage) {
                             // Deny TokenExpiredError with additional message payload for the ability of client re-login
-                            res.status(failedStatus).json({ error: err.name });
+                            res.status(rejectHttpStatus).json({ error: err.name });
                         }
                         else {
                             // Deny expired token without additional message
-                            res.sendStatus(failedStatus);
+                            res.sendStatus(rejectHttpStatus);
                         }
                     }
                     else {
                         if (conf.logger) conf.logger.error('Invalid bearer token was sent. Denying request.');
-                        res.sendStatus(failedStatus);
+                        res.sendStatus(rejectHttpStatus);
                     }
                 } else {
                     req[requestAuthProp] = authData;
@@ -50,7 +50,7 @@ module.exports.verifyToken = (conf) => {
             });
         } else {
             if (conf.logger) conf.logger.warn('Authorization header was not sent. Denying request.');
-            res.sendStatus(failedStatus);
+            res.sendStatus(rejectHttpStatus);
         }
     }
 };
