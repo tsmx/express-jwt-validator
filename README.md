@@ -27,7 +27,9 @@ app.get('/secret', verifyToken, (req, res) => {
 
 This module exports the `verifyToken` middleware function for express to check a request for a valid JSON Web token authorization. The token must be provided as a bearer token in the HTTP request header according to the [RFC standard](https://datatracker.ietf.org/doc/html/rfc6750#section-2.1).
 
-Requests with a failed JWT validation will be rejected. If the validations succeeds, the request will be passed to the next element of the middleware chain.
+Requests with a failed JWT validation will be rejected with [HTTP status 401](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401) by default. If the validations succeeds, the verified JWT payload will be added to the rquest and it will be passed to the next element of the middleware chain.
+
+![verify-token-schema](https://tsmx.net/wp-content/uploads/2022/04/verify-token-schema.png)
 
 ## Configuration options
 
