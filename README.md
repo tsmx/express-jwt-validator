@@ -51,6 +51,14 @@ Default: `undefined`
 
 Mandatory: yes
 
+The sceret used to verify the JWT bearer token. Must be present, otherwise an expection will be thrown.
+
+Example:
+
+```js
+const verifyToken = require('@tsmx/express-jwt-validator')({ secret: 'MySecretKey-123456' });
+```
+
 ### header
 
 Type: `String`
@@ -58,6 +66,14 @@ Type: `String`
 Default: `authorization`
 
 Mandatory: no
+
+Can be used if the bearer token will be supplied in another header field then `authorization` (Note: HTTP header field names are case-insensitive).
+
+Example: 
+
+```js
+const verifyToken = require('@tsmx/express-jwt-validator')({ secret: 'MySecretKey-123456', header: 'auth' });
+```
 
 ### rejectHttpStatus
 
@@ -67,6 +83,14 @@ Default: `401`
 
 Mandatory: no
 
+The HTTP status to be sent back to the client if the bearer token validation fails. Defaults to 401 for `Unauthorized`, could also be set to 403 `Forbidden` for example. Please note that although any status is possible here you should use an appropriate [HTTP client error code](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#client_error_responses).
+
+Example: 
+
+```js
+const verifyToken = require('@tsmx/express-jwt-validator')({ secret: 'MySecretKey-123456', rejectHttpStatus: 403 });
+```
+
 ### sendExpiredMessage
 
 Type: `Boolean`
@@ -74,6 +98,16 @@ Type: `Boolean`
 Default: `true`
 
 Mandatory: no
+
+If set to true, the rejection response will contain a JSON body with one property `error` indicating the client that the token has expired. This can be useful to allow the client to check that the token must be refreshed.
+
+If set to false, an expired token will be rejected withput any response body.
+
+Example: 
+
+```js
+const verifyToken = require('@tsmx/express-jwt-validator')({ secret: 'MySecretKey-123456', sendExpiredMessage: false });
+```
 
 ### requestAuthProp
 
@@ -83,6 +117,16 @@ Default: `authData`
 
 Mandatory: no
 
+The name of the property in `req` where the JWT bearer token payload should be stored for further processing. Can be changed to any property name, please make sure it is unique and no other properties are overwritten.
+
+Example: 
+
+```js
+const verifyToken = require('@tsmx/express-jwt-validator')({ secret: 'MySecretKey-123456', requestAuthProp: 'tokenPayload' });
+```
+
+Token data would now be accessible with `req.tokenPayload` instead of `req.authData` in following middleware functions. 
+
 ### logger
 
 Type: `Object`
@@ -91,4 +135,14 @@ Default: `undefined`
 
 Mandatory: no
 
-Coming soon...
+You can pass a winston logger instance (or any compatible) to get log outpur from the middleware. Compatible means that the logger must provide `info`, `warn` and `error` functions receiving a string to be logged.
+
+Example:
+
+```js
+const winston = require('winston');
+
+winstonLogger = winston.createLogger({ /*... winston options ...*/ });
+
+const verifyToken = require('@tsmx/express-jwt-validator')({ secret: 'MySecretKey-123456', logger:  winstonLogger});
+```
