@@ -10,6 +10,8 @@
 
 Stop writing boilerplate to protect [express](https://www.npmjs.com/package/express) routes with [JWT](https://www.npmjs.com/package/jsonwebtoken) bearer tokens in your projects.
 
+Supports optional log output using [winston](https://www.npmjs.com/package/winston) or any compatible logger.
+
 ## Usage
 
 ```js
@@ -33,7 +35,7 @@ Requests with a failed JWT validation will be rejected with [HTTP status 401](ht
 
 ## Configuration options
 
-When requiring in the middlware with...
+When requiring in the middleware with...
 
 ```js
 const verifyToken = require('@tsmx/express-jwt-validator')({ /* configuration object */ });
@@ -43,14 +45,38 @@ const verifyToken = require('@tsmx/express-jwt-validator')({ /* configuration ob
 
 ### secret
 
+Type: `String`
+Default: `undefined`
+Mandatory: yes
+
 ### header
+
+Type: `String`
+Default: `authorization`
+Mandatory: no
 
 ### rejectHttpStatus
 
+Type: `Number`
+Default: `401`
+Mandatory: no
+
 ### sendExpiredMessage
+
+Type: `Boolean`
+Default: `true`
+Mandatory: no
 
 ### requestAuthProp
 
+Type: `String`
+Default: `authData`
+Mandatory: no
+
 ### logger
+
+Type: `Object`
+Default: `undefined`
+Mandatory: no
 
 Coming soon...
