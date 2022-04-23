@@ -8,7 +8,7 @@
 
 > Simple express middleware for validating JWT bearer tokens. 
 
-Stop writing boilerplate to protect [express](https://www.npmjs.com/package/express) routes with [JWT](https://www.npmjs.com/package/jsonwebtoken) bearer tokens in your projects.
+Stop writing boilerplate code to protect [express](https://www.npmjs.com/package/express) routes with [JWT](https://www.npmjs.com/package/jsonwebtoken) bearer tokens in your projects.
 
 Supports optional log output using [winston](https://www.npmjs.com/package/winston) or any compatible logger.
 
@@ -40,7 +40,9 @@ Requests with a failed JWT validation will be rejected with [HTTP status 401](ht
 When requiring in the middleware with...
 
 ```js
-const verifyToken = require('@tsmx/express-jwt-validator')({ /* configuration object */ });
+const verifyToken = require('@tsmx/express-jwt-validator')({ 
+  /* configuration object */ 
+});
 ```
 
 ...the passed configuration object supports the following porperties.
@@ -58,7 +60,9 @@ The sceret used to verify the JWT bearer token. Must be present, otherwise an ex
 Example:
 
 ```js
-const verifyToken = require('@tsmx/express-jwt-validator')({ secret: 'MySecretKey-123456' });
+const verifyToken = require('@tsmx/express-jwt-validator')({ 
+  secret: 'MySecretKey-123456' 
+});
 ```
 
 ### header
