@@ -114,7 +114,7 @@ Default: `true`
 
 Mandatory: no
 
-If set to true, the rejection response will contain a JSON body with one property `error` indicating the client that the token has expired. This can be useful to allow the client to check that the token must be refreshed.
+If set to true, the rejection response will contain a JSON body with one property `error` and value `TokenExpiredError` indicating the client that the token has expired. This can be useful to allow the client to check that the token must be refreshed.
 
 If set to false, an expired token will be rejected without any response body.
 

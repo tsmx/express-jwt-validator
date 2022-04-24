@@ -139,5 +139,6 @@ describe('express-jwt-validator test suite', () => {
             .set('Authorization', 'Bearer ' + expiredTestToken);
         expect(response.status).toBe(403);
         expect(response.body.error).toBeDefined();
+        expect(response.body.error).toStrictEqual('TokenExpiredError');
     });
 });
