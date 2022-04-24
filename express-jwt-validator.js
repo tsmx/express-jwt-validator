@@ -23,6 +23,7 @@ module.exports = (conf) => {
             if (bearer.length < 2) {
                 if (conf.logger) conf.logger.warn('Bearer token was not sent. Denying request.');
                 res.sendStatus(rejectHttpStatus);
+                return;
             }
             const bearerToken = bearer[1];
             jwt.verify(bearerToken, conf.secret, (err, authData) => {
@@ -32,15 +33,18 @@ module.exports = (conf) => {
                         if (sendExpiredMessage) {
                             // Deny TokenExpiredError with additional message payload for the ability of client re-login
                             res.status(rejectHttpStatus).json({ error: err.name });
+                            return;
                         }
                         else {
                             // Deny expired token without additional message
                             res.sendStatus(rejectHttpStatus);
+                            return;
                         }
                     }
                     else {
                         if (conf.logger) conf.logger.error('Invalid bearer token was sent. Denying request.');
                         res.sendStatus(rejectHttpStatus);
+                        return;
                     }
                 } else {
                     req[requestAuthProp] = authData;
@@ -51,6 +55,7 @@ module.exports = (conf) => {
         } else {
             if (conf.logger) conf.logger.warn('Authorization header was not sent. Denying request.');
             res.sendStatus(rejectHttpStatus);
+            return;
         }
     }
 };

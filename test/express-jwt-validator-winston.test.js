@@ -1,12 +1,11 @@
 const testApp = require('./test-app');
 const supertest = require('supertest');
-const jwt = require('jsonwebtoken');
 const winston = require('winston');
 const MemoryStream = require('memorystream');
 
 const { tokenSecret, generateTestTokens } = require('./test-utils');
 
-describe('express-jwt-validator logging test suite', () => {
+describe('express-jwt-validator test suite for logging with winston', () => {
 
     const testSecret = tokenSecret;
     const { testToken, expiredTestToken } = generateTestTokens();

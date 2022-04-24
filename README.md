@@ -10,7 +10,7 @@
 
 Stop writing boilerplate code to protect [express](https://www.npmjs.com/package/express) routes with [JWT](https://www.npmjs.com/package/jsonwebtoken) bearer tokens in your projects.
 
-Supports optional log output using [winston](https://www.npmjs.com/package/winston) or any compatible logger.
+Supports optional log output using [winston](https://www.npmjs.com/package/winston), [log4js](https://www.npmjs.com/package/log4js) or any other compatible logger. For details refer to the [log configuration](#logger) section
 
 ## Usage
 
@@ -156,7 +156,9 @@ Default: `undefined`
 
 Mandatory: no
 
-You can pass a [winston](https://www.npmjs.com/package/winston) logger instance (or any compatible) to get log output from the middleware. Compatible means that the logger must provide `info`, `warn` and `error` functions receiving a string to be logged.
+You can pass a [winston](https://www.npmjs.com/package/winston) or [log4js](https://www.npmjs.com/package/log4js) logger instance (or any compatible) to get log output from the middleware. Compatible means that the logger must provide `info`, `warn` and `error` functions receiving a string to be logged.
+
+Note: the package contains tests for winston and log4js.
 
 Example:
 
