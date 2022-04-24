@@ -23,6 +23,7 @@ const verifyToken = require('@tsmx/express-jwt-validator')({
 });
 
 app.get('/secret', verifyToken, (req, res) => {
+  // token payload available in req.authData
   res.send('Only accessible with a valid JWT bearer token.');
 });
 ```
@@ -165,6 +166,7 @@ const winston = require('winston');
 winstonLogger = winston.createLogger({ /*... winston options ...*/ });
 
 const verifyToken = require('@tsmx/express-jwt-validator')({ 
-  secret: 'MySecretKey-123456', logger:  winstonLogger
+  secret: 'MySecretKey-123456', 
+  logger:  winstonLogger
 });
 ```
