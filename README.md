@@ -160,6 +160,16 @@ You can pass a [winston](https://www.npmjs.com/package/winston) or [log4js](http
 
 Note: the package contains tests for winston and log4js.
 
+The following events will be logged:
+
+| Event | Log level |
+|-------|-----------|
+| Rejected - No auth header present | WARN |
+| Rejected - No valid 'Bearer TOKEN' entry in auth header | WARN |
+| Rejected - Expired token was sent | WARN |
+| Rejected - Invalid token was sent (potential attack) | ERROR |
+| Passed - Valid Bearer token was sent | INFO | 
+
 Example:
 
 ```js
