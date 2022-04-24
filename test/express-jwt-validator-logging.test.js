@@ -4,10 +4,13 @@ const jwt = require('jsonwebtoken');
 const winston = require('winston');
 const MemoryStream = require('memorystream');
 
+const { tokenSecret, generateTestTokens } = require('./test-utils');
+
 describe('express-jwt-validator logging test suite', () => {
 
-    const testSecret = '123456';
-    let testToken, expiredTestToken, winstonLogger, memStream;
+    const testSecret = tokenSecret;
+    const { testToken, expiredTestToken } = generateTestTokens();
+    let winstonLogger, memStream;
 
     let format = winston.format;
     const myFormat = format.printf((info) => {
@@ -16,8 +19,6 @@ describe('express-jwt-validator logging test suite', () => {
 
     beforeEach(() => {
         jest.resetModules();
-        testToken = jwt.sign({ user: 'TestUser123', info: 'test test' }, testSecret);
-        expiredTestToken = jwt.sign({ user: 'TestUser123', info: 'test test' }, testSecret, { expiresIn: 0 });
         memStream = new MemoryStream(null, { readable: false, end: false })
         winstonLogger = winston.createLogger({
             format: myFormat,

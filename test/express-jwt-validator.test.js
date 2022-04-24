@@ -1,16 +1,15 @@
 const testApp = require('./test-app');
 const supertest = require('supertest');
-const jwt = require('jsonwebtoken');
+
+const { tokenSecret, generateTestTokens } = require('./test-utils');
 
 describe('express-jwt-validator test suite', () => {
 
-    const testSecret = '123456';
-    let testToken, expiredTestToken;
+    const testSecret = tokenSecret;
+    const { testToken, expiredTestToken } = generateTestTokens();
 
     beforeEach(() => {
         jest.resetModules();
-        testToken = jwt.sign({ user: 'TestUser123', info: 'test test' }, testSecret);
-        expiredTestToken = jwt.sign({ user: 'TestUser123', info: 'test test' }, testSecret, { expiresIn: 0 });
     });
 
     it('tests a failed middleware construction because of a missing JWT secret', async () => {
