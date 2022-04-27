@@ -54,6 +54,16 @@ describe('express-jwt-validator test suite for logging with winston', () => {
         expect(memStream.toString()).toMatch(/^ERROR?/);
     });
 
+    it('tests a failed access to a secret route with strict validation and an invalid bearer syntax and a winston logger defined', async () => {
+        const app = testApp({ secret: testSecret, logger: winstonLogger, strictBearerValidation: true });
+        const request = supertest(app);
+        const response = await request
+            .get('/secret')
+            .set('Authorization', 'BearerX ' + testToken);
+        expect(response.status).toBe(401);
+        expect(memStream.toString()).toMatch(/^WARN?/);
+    });
+
     it('tests a failed access to a secret route with an expired token and a winston logger defined', async () => {
         const app = testApp({ secret: testSecret, logger: winstonLogger });
         const request = supertest(app);

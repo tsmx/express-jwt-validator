@@ -1,9 +1,12 @@
 const jwt = require('jsonwebtoken');
 
+const bearerPrefix = 'Bearer';
+
 const defaultHeader = 'authorization';
 const defaultFailedStatus = 401;
 const defaultSendExpiredMessage = true;
 const defaultRequestAuthProp = 'authData';
+const defaultStrictBearerValidation = false;
 
 module.exports = (conf) => {
     // check if conf and conf.secret are present (minimal requirement)
@@ -15,6 +18,7 @@ module.exports = (conf) => {
     const rejectHttpStatus = conf.rejectHttpStatus ? conf.rejectHttpStatus : defaultFailedStatus;
     const sendExpiredMessage = Object.prototype.hasOwnProperty.call(conf, 'sendExpiredMessage') ? conf.sendExpiredMessage === true : defaultSendExpiredMessage;
     const requestAuthProp = conf.requestAuthProp ? conf.requestAuthProp : defaultRequestAuthProp;
+    const strictBearerValidation = Object.prototype.hasOwnProperty.call(conf, 'strictBearerValidation') ? conf.strictBearerValidation === true : defaultStrictBearerValidation;
     // return middleware function
     return (req, res, next) => {
         const authorizationHeader = req.headers[authHeader];
@@ -24,6 +28,13 @@ module.exports = (conf) => {
                 if (conf.logger) conf.logger.warn('Bearer token was not sent. Denying request.');
                 res.sendStatus(rejectHttpStatus);
                 return;
+            }
+            if (strictBearerValidation) {
+                if (bearer.length !== 2 || bearer[0] !== bearerPrefix) {
+                    if (conf.logger) conf.logger.warn('Strict Bearer validation failed. Denying request.');
+                    res.sendStatus(rejectHttpStatus);
+                    return;
+                }
             }
             const bearerToken = bearer[1];
             jwt.verify(bearerToken, conf.secret, (err, authData) => {

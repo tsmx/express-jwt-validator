@@ -60,6 +60,17 @@ describe('express-jwt-validator test suite for logging with log4js', () => {
         expect(testOutput[0].includes('[ERROR]')).toBeTruthy();
     });
 
+    it('tests a failed access to a secret route with strict validation and an invalid bearer syntax and a log4js logger defined', async () => {
+        const app = testApp({ secret: testSecret, logger: log4jsLogger, strictBearerValidation: true });
+        const request = supertest(app);
+        const response = await request
+            .get('/secret')
+            .set('Authorization', 'BearerX ' + testToken);
+        expect(response.status).toBe(401);
+        expect(testOutput.length).toBe(1);
+        expect(testOutput[0].includes('[WARN]')).toBeTruthy();
+    });
+
     it('tests a failed access to a secret route with an expired token and a log4js logger defined', async () => {
         const app = testApp({ secret: testSecret, logger: log4jsLogger });
         const request = supertest(app);

@@ -62,6 +62,17 @@ describe('express-jwt-validator test suite', () => {
         expect(response.body.authData.info).toBe('test test');
     });
 
+    it('tests a successful access to a secret route with strict validation', async () => {
+        const app = testApp({ secret: testSecret, strictBearerValiadtion: true });
+        const request = supertest(app);
+        const response = await request
+            .get('/secret')
+            .set('Authorization', 'Bearer ' + testToken);
+        expect(response.status).toBe(200);
+        expect(response.body.authData.user).toBe('TestUser123');
+        expect(response.body.authData.info).toBe('test test');
+    });
+
     it('tests a successful access to a secret route with a custom request property', async () => {
         const app = testApp({ secret: testSecret, requestAuthProp: 'tokenPayload' });
         const request = supertest(app);
@@ -92,6 +103,26 @@ describe('express-jwt-validator test suite', () => {
             .set('Authorization', 'Bearer ' + expiredTestToken);
         expect(response.status).toBe(401);
         expect(response.body.error).toBeDefined();
+    });
+
+    it('tests a failed access to a secret route with an strict validation (\'Bearer\' prefix wrong)', async () => {
+        const app = testApp({ secret: testSecret, strictBearerValidation: true });
+        const request = supertest(app);
+        const response = await request
+            .get('/secret')
+            .set('Authorization', 'BearerX ' + testToken);
+        expect(response.status).toBe(401);
+        expect(response.body.error).toBeUndefined();
+    });
+
+    it('tests a failed access to a secret route with an strict validation (too much header elements)', async () => {
+        const app = testApp({ secret: testSecret, strictBearerValidation: true });
+        const request = supertest(app);
+        const response = await request
+            .get('/secret')
+            .set('Authorization', 'Bearer ' + testToken * ' xxxxxx');
+        expect(response.status).toBe(401);
+        expect(response.body.error).toBeUndefined();
     });
 
     it('tests a failed access to a secret route with an expired token and no error message', async () => {
