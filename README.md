@@ -190,7 +190,7 @@ The following events will be logged:
 | Rejected - Invalid token was sent (potential attack) | ERROR |
 | Passed - Valid Bearer token was sent | INFO | 
 
-Example:
+Example for winston:
 
 ```js
 const winston = require('winston');
@@ -200,5 +200,18 @@ winstonLogger = winston.createLogger({ /*... winston options ...*/ });
 const verifyToken = require('@tsmx/express-jwt-validator')({ 
   secret: 'MySecretKey-123456', 
   logger:  winstonLogger
+});
+```
+
+Example for log4js:
+
+```js
+const log4js = require('log4js');
+log4js.configure({ /*... log4js options ...*/ });
+log4jsLogger = log4js.getLogger();
+
+const verifyToken = require('@tsmx/express-jwt-validator')({ 
+  secret: 'MySecretKey-123456', 
+  logger:  log4jsLogger
 });
 ```
