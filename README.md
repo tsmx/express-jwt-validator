@@ -5,6 +5,7 @@
 ![node-current (scoped)](https://img.shields.io/node/v/@tsmx/express-jwt-validator)
 [![Build Status](https://img.shields.io/github/workflow/status/tsmx/express-jwt-validator/git-ci-build)](https://img.shields.io/github/workflow/status/tsmx/express-jwt-validator/git-ci-build)
 [![Coverage Status](https://coveralls.io/repos/github/tsmx/express-jwt-validator/badge.svg?branch=master)](https://coveralls.io/github/tsmx/express-jwt-validator?branch=master)
+![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/tsmx/express-jwt-validator)
 
 > Simple express middleware for validating JWT bearer tokens. 
 
