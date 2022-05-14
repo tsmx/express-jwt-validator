@@ -50,6 +50,16 @@ const verifyToken = require('@tsmx/express-jwt-validator')({
 
 ...the passed configuration object supports the following properties.
 
+| Property | Description |
+|----------|-------------|
+| [secret](#secret) | The JWT validation secret |
+| [header](#header) | Custom header HTTP name |
+| [strictBearerValidation](#strictbearervalidation) | Enable/disable strict validation |
+| [rejectHttpStatus](#rejecthttpstatus) | Custom HTTP response status for failed validations |
+| [sendExpiredMessage](#sendexpiredmessage) | Enable/disable error message for expired tokens |
+| [requestAuthProp](#requestauthprop) | Custom property name to store token data in `req` |
+| [logger](#logger) | Setting a logger to receive log output |
+
 ### secret
 
 Type: `String`
@@ -207,6 +217,7 @@ Example for log4js:
 
 ```js
 const log4js = require('log4js');
+
 log4js.configure({ /*... log4js options ...*/ });
 log4jsLogger = log4js.getLogger();
 
