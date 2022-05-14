@@ -58,7 +58,7 @@ const verifyToken = require('@tsmx/express-jwt-validator')({
 | [rejectHttpStatus](#rejecthttpstatus) | Custom HTTP response status for failed validations |
 | [sendExpiredMessage](#sendexpiredmessage) | Enable/disable error message for expired tokens |
 | [requestAuthProp](#requestauthprop) | Custom property name to store token data in `req` |
-| [logger](#logger) | Setting a logger to receive log output |
+| [logger](#logger) | An optional logger to receive log output |
 
 ### secret
 
