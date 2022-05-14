@@ -87,6 +87,25 @@ const verifyToken = require('@tsmx/express-jwt-validator')({
 });
 ```
 
+### strictBearerValidation
+
+Type: `Boolean`
+
+Default: `false`
+
+Mandatory: no
+
+If set to true, the authorization header is strictly validated against the schema `Bearer <JWT>` (including the whitespace), like `Bearer eyJhb...`. If set to false (default), it is sufficient if the header consists of two strings separated by a whitespace whereas the second entry is considered to be the JWT.
+
+Example: 
+
+```js
+const verifyToken = require('@tsmx/express-jwt-validator')({ 
+  secret: 'MySecretKey-123456', 
+  strictBearerValidation: true
+});
+```
+
 ### rejectHttpStatus
 
 Type: `Number`
@@ -166,6 +185,7 @@ The following events will be logged:
 |-------|-----------|
 | Rejected - No auth header present | WARN |
 | Rejected - No valid 'Bearer TOKEN' entry in auth header | WARN |
+| Rejected - Strict Bearer validation failed | WARN |
 | Rejected - Expired token was sent | WARN |
 | Rejected - Invalid token was sent (potential attack) | ERROR |
 | Passed - Valid Bearer token was sent | INFO | 
