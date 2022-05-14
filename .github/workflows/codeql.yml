@@ -1,7 +1,9 @@
 name: "CodeQL"
 
 on:
-  [push]
+  push:
+    paths-ignore:
+      - 'test/*.js'
 
 jobs:
   analyze:
