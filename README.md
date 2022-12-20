@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ![npm (scoped)](https://img.shields.io/npm/v/@tsmx/express-jwt-validator)
 ![node-current (scoped)](https://img.shields.io/node/v/@tsmx/express-jwt-validator)
-[![Build Status](https://img.shields.io/github/workflow/status/tsmx/express-jwt-validator/git-ci-build)](https://img.shields.io/github/workflow/status/tsmx/express-jwt-validator/git-ci-build)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/tsmx/express-jwt-validator/git-build.yml?branch=master)](https://img.shields.io/github/actions/workflow/status/tsmx/express-jwt-validator/git-build.yml?branch=master)
 [![Coverage Status](https://coveralls.io/repos/github/tsmx/express-jwt-validator/badge.svg?branch=master)](https://coveralls.io/github/tsmx/express-jwt-validator?branch=master)
 ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/tsmx/express-jwt-validator)
 
