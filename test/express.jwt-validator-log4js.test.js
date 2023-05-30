@@ -10,7 +10,7 @@ describe('express-jwt-validator test suite for logging with log4js', () => {
 
     var testOutput = [], log4jsLogger;
     const originalConsoleLog = console.log;
-    const testConsoleLog = (output) => { testOutput.push(output) };
+    const testConsoleLog = (output) => { testOutput.push(output); };
 
     beforeEach(() => {
         jest.resetModules();

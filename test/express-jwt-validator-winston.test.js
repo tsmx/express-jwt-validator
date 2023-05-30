@@ -18,7 +18,7 @@ describe('express-jwt-validator test suite for logging with winston', () => {
 
     beforeEach(() => {
         jest.resetModules();
-        memStream = new MemoryStream(null, { readable: false, end: false })
+        memStream = new MemoryStream(null, { readable: false, end: false });
         winstonLogger = winston.createLogger({
             format: myFormat,
             transports: [new winston.transports.Stream({ stream: memStream })]
