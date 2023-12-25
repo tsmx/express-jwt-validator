@@ -13,6 +13,10 @@
   },
   "author": "tsmx <dev@tsmx.net>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tsmx/express-jwt-validator.git"
+  },
   "keywords": [
     "express",
     "middleware",
